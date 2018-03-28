@@ -11,25 +11,35 @@ const bot = new TelegramBot(config.TOKEN, {
 })
 
 bot.on('message', msg => {
-    console.log('Working', msg.from.first_name)
+  console.log('Working', msg.from.first_name)
 
-    switch (msg.text) {
-        case kb.home.favourite:
-            break
-        case kb.home.films:
-            break
-        case kb.home.cinemas:
-            break
-    }
+  const chatId = helper.getChatId(msg)
+
+  switch (msg.text) {
+    case kb.home.favourite:
+      break
+    case kb.home.films:
+      bot.sendMessage(chatId, `Выберите жанр:`, {
+        reply_markup: {keyboard: keyboard.films}
+      })
+      break
+    case kb.home.cinemas:
+      break 
+    case kb.back:
+      bot.sendMessage(chatId, `Что хотите посмотреть?`, {
+        reply_markup: {keyboard: keyboard.home}
+      })
+      break
+  }
 })
 
 bot.onText(/\/start/, msg => {
 
-    const text = `Здравствуйте, ${msg.from.first_name}\nВыберите команду для начала работы:`
-    bot.sendMessage(helper.getChatId(msg), text, {
-        reply_markup: {
-            keyboard: keyboard.home
-        }
-    })
+  const text = `Здравствуйте, ${msg.from.first_name}\nВыберите команду для начала работы:`
+  bot.sendMessage(helper.getChatId(msg), text, {
+    reply_markup: {
+      keyboard: keyboard.home
+    }
+  })
 
 })

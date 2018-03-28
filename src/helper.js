@@ -4,8 +4,8 @@ module.exports = {
     console.log('Bot has been started ...')
   },
 
-    getChatId(msg) {
-        return msg.chat.id
-    }
+  getChatId(msg) {
+    return msg.chat.id
+  }
 
 }
